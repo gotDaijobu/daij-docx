@@ -186,3 +186,5 @@ class DocumentPart(BaseStoryPart):
             footnotes_part = FootnotesPart.default(self)
             self.relate_to(footnotes_part, RT.FOOTNOTES)
             return  footnotes_part
+        
+    

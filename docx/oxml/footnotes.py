@@ -39,6 +39,23 @@ class CT_Footnotes(BaseOxmlElement):
                 return fn
         return None
 
+    def get_footnote(self, _id):
+        """Get a footnote by id and wrap it in a Footnote object."""
+        fn = self.get_footnote_by_id(_id)
+        if fn is not None:
+            from ..text.footnote import Footnote
+            return Footnote(fn, self)
+        return None
+
+    def delete_footnote(self, _id):
+        """Delete a footnote by id."""
+        fn = self.get_footnote_by_id(_id)
+        if fn is not None:
+            parent = fn.getparent()
+            parent.remove(fn)
+            return True
+        return False
+
 class CT_Footnote(BaseOxmlElement):
     """
     A ``<w:footnote>`` element, a container for Footnote properties 

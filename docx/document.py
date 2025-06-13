@@ -111,13 +111,12 @@ class Document(ElementProxy):
         """
         return self.part.comments_part
     
-    # @property
-    # def footnotes_part(self):
-    #     """
-    #     A |Footnotes| object providing read/write access to the core
-    #     properties of this document.
-    #     """
-    #     return self.part._footnotes_part
+    @property
+    def footnotes_part(self):
+        """
+        A |Footnotes| object providing read/write access to the footnotes of this document.
+        """
+        return self._part._footnotes_part
 
 
     @property
@@ -220,6 +219,43 @@ class Document(ElementProxy):
         if self.__body is None:
             self.__body = _Body(self._element.body, self)
         return self.__body
+
+    @property
+    def footnotes(self):
+        """
+        Returns a list of Footnote objects for all footnotes in the document.
+        """
+        footnotes_part = self.footnotes_part
+        footnotes_elm = footnotes_part.element
+        from docx.text.footnote import Footnote
+        # Only return footnotes with a paragraph (skip separators, etc.)
+        return [Footnote(fn, footnotes_elm) for fn in footnotes_elm.findall('.//w:footnote', {'w': footnotes_elm.nsmap['w']}) if fn.find('.//w:p', {'w': footnotes_elm.nsmap['w']}) is not None]
+
+    def get_footnoteReferenceById(self, id):
+        """
+        Find the paragraph containing a <w:footnoteReference w:id="id"/> and return it as a Paragraph object.
+        """
+        # Get the document XML root
+        body_elm = self._element.body
+        # Use findall to get all footnoteReference elements
+        refs = body_elm.findall('.//w:footnoteReference', body_elm.nsmap)
+        ref = None
+        for r in refs:
+            if r.get('{%s}id' % body_elm.nsmap['w']) == str(id):
+                ref = r
+                break
+        if ref is None:
+            return None
+        # Find ancestor <w:p>
+        p_elm = ref.getparent()
+        while p_elm is not None and p_elm.tag != '{%s}p' % body_elm.nsmap['w']:
+            p_elm = p_elm.getparent()
+        if p_elm is None:
+            return None
+        from docx.text.paragraph import Paragraph
+        return Paragraph(p_elm, self)
+
+
 
 
 class _Body(BlockItemContainer):
