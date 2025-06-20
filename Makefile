@@ -28,7 +28,7 @@ cleandocs:
 	$(MAKE) -C docs clean
 
 coverage:
-	py.test --cov-report term-missing --cov=docx tests/
+	py.test --cov-report term-missing --cov=daijdocx tests/
 
 docs:
 	$(MAKE) -C docs html

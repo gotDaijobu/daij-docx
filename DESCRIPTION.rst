@@ -18,7 +18,7 @@ Usage
 
 ::
     
-    import docx
+    import daijdocx
     
     document = docx.Document()
 

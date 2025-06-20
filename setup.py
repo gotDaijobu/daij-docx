@@ -18,15 +18,15 @@ def text_of(relpath):
     return text
 
 
-# Read the version from docx.__version__ without importing the package
+# Read the version from daijdocx.__version__ without importing the package
 # (and thus attempting to import packages it depends on that may not be
 # installed yet)
 version = re.search(
-    "__version__ = '([^']+)'", text_of('docx/__init__.py')
+    "__version__ = '([^']+)'", text_of('daijdocx/__init__.py')
 ).group(1)
 
 
-NAME = 'bayoo-docx'
+NAME = 'daijdocx'
 VERSION = version
 DESCRIPTION = 'Create and update Microsoft Word .docx files.'
 KEYWORDS = 'docx office openxml word'
@@ -35,7 +35,7 @@ AUTHOR_EMAIL = 'ObayDaba96@googlegroups.com'
 URL = 'https://github.com/BayooG/bayooo-docx'
 LICENSE = text_of('LICENSE')
 PACKAGES = find_packages(exclude=['tests', 'tests.*'])
-PACKAGE_DATA = {'docx': ['templates/*.xml', 'templates/*.docx']}
+PACKAGE_DATA = {'daijdocx': ['templates/*.xml', 'templates/*.docx']}
 
 INSTALL_REQUIRES = ['lxml>=2.3.2']
 TEST_SUITE = 'tests'
