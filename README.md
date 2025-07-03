@@ -11,7 +11,7 @@ Installation
 Use the package manager [pip](https://pypi.org/project/bayoo-docx/) to install bayoo-docx.
 
 
-`pip install bayoo-docx`
+`pip install git+https://github.com/gotDaijobu/bayoo-docx`
 
 Usage:
 -----
