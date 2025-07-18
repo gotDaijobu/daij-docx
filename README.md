@@ -1,14 +1,14 @@
-Bayoo-docx
+Daij-docx
 ==========
 
-Python library forked from [python-docx](https://github.com/python-openxml/python-docx).
+Python library forked from [python-docx](https://github.com/python-openxml/python-docx and Bayoo-docx
 
 The main purpose of the fork was to add implementation for comments and footnotes to the library
 
 Installation
 ------------
 
-Use the package manager [pip](https://pypi.org/project/bayoo-docx/) to install bayoo-docx.
+Use the package manager pip to install daij-docx.
 
 
 `pip install git+https://github.com/gotDaijobu/bayoo-docx`
