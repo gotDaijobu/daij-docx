@@ -206,6 +206,17 @@ class Run(Parented):
             return footnote.paragraph.text
         else:
             return None
+    
+    @property
+    def footnote_part(self):
+        _id = self._r.footnote_id
+
+        if _id is not None:
+            footnotes_part = self._parent._parent.part._footnotes_part.element
+            footnote = footnotes_part.get_footnote_by_id(_id)
+            return footnote
+        else:
+            return None
 
     @property
     def is_hyperlink(self):
