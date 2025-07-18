@@ -13,11 +13,11 @@ class Footnote(Parented):
     
     @property
     def text(self):
-        # Return the concatenated text of all <w:t> elements in the first paragraph, excluding those inside hyperlinks
+        # Return the concatenated text of all <w:t> elements in the first paragraph
         p = self.element.p
         if p is not None:
             t_elems = p.findall('.//w:t', {'w': p.nsmap['w']})
-            non_hyperlink_texts = []
+            full_text = []
             for t_elem in t_elems:
                 parent = t_elem.getparent()
                 is_in_hyperlink = False
@@ -27,8 +27,10 @@ class Footnote(Parented):
                         break
                     parent = parent.getparent()
                 if not is_in_hyperlink:
-                    non_hyperlink_texts.append(t_elem.text or '')
-            return ''.join(non_hyperlink_texts)
+                    full_text.append(t_elem.text or '')
+                else:
+                    full_text.append((t_elem.text or '') + ' (hyperlink)')
+            return ''.join(full_text)
         return ""
 
     @text.setter
